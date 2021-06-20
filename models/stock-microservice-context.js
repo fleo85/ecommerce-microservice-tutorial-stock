@@ -12,8 +12,8 @@ const sequelizeconn = new sequelize(database, username, password, {
     host: pg_host,
     dialect: config.dialect,
     forcedbreset: config.forcedbreset,
-    minifyAliases: config.minifyAliases});
-    
+    minifyAliases: config.minifyAliases, logging: console.log});
+
 const Product = ProductModel(sequelizeconn, sequelize);
 
 sequelizeconn.sync({force: config.forcedbreset}).then(() => {console.log('Databases and tables created')})
