@@ -3,11 +3,15 @@ const Context = require('../models/stock-microservice-context.js')
 var Sequelize = require('sequelize');
 var amqp = require('amqplib/callback_api');
 
-function buildProductForDB(product) {
+function buildProductForDB(product, create) {
   var docItem = {}
   docItem["name"] = product.nome;
   docItem["manufacturer"] = product.produttore;
-  docItem["availableAmount"] = Sequelize.literal('"availableAmount" + ' + product.quantita);
+  if (create == true) {
+    docItem["availableAmount"] = product.quantita;  
+  } else {
+    docItem["availableAmount"] = Sequelize.literal('"availableAmount" + ' + product.quantita);
+  }
   return docItem;
 }
 
