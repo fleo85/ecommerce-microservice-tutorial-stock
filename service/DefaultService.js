@@ -68,6 +68,7 @@ exports.productsPOST = function(body) {
           transaction: t
         }).then(updateProduct => {
           body.id = updateProduct.id
+          //TODO: ADD MESSAGE TO QUEUE
         })
     }).then(result => {
       resolve(body);
