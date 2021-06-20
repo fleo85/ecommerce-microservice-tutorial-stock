@@ -1,0 +1,125 @@
+openapi: 3.0.0
+info:
+  title: Sample API
+  description: "Optional multiline or single-line description in [CommonMark](http://commonmark.org/help/)\
+    \ or HTML."
+  version: 0.1.9
+servers:
+- url: http://api.example.com/v1
+  description: "Optional server description, e.g. Main (production) server"
+- url: http://staging-api.example.com
+  description: "Optional server description, e.g. Internal staging server for testing"
+paths:
+  /products:
+    get:
+      description: Restituisce tutti i prodotti
+      operationId: productsGET
+      parameters:
+      - name: offset
+        in: query
+        description: The number of items to skip before starting to collect the result
+          set.
+        required: false
+        style: form
+        explode: true
+        schema:
+          minimum: 0
+          type: integer
+      - name: limit
+        in: query
+        description: The numbers of items to return.
+        required: false
+        style: form
+        explode: true
+        schema:
+          maximum: 50
+          minimum: 1
+          type: integer
+          default: 20
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductList'
+      x-swagger-router-controller: Default
+    post:
+      description: Crea un nuovo prodotto
+      operationId: productsPOST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+      x-swagger-router-controller: Default
+  /products/{productId}:
+    put:
+      description: Modifica un prodotto
+      operationId: productsProductIdPUT
+      parameters:
+      - name: productId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+      x-swagger-router-controller: Default
+components:
+  schemas:
+    ProductList:
+      properties:
+        total:
+          type: integer
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/Product'
+      example:
+        total: 0
+        products:
+        - auantita: 1
+          produttore: produttore
+          nome: nome
+          id: 6
+        - auantita: 1
+          produttore: produttore
+          nome: nome
+          id: 6
+    Product:
+      properties:
+        id:
+          type: integer
+        nome:
+          type: string
+        produttore:
+          type: string
+        auantita:
+          type: integer
+      example:
+        auantita: 1
+        produttore: produttore
+        nome: nome
+        id: 6
