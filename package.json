@@ -4,8 +4,8 @@
   "description": "Optional multiline or single-line description in [CommonMark](http://commonmark.org/help/) or HTML.",
   "main": "index.js",
   "scripts": {
-	"prestart": "npm install",
-	"start": "node index.js"
+    "prestart": "npm install",
+    "start": "node index.js"
   },
   "keywords": [
     "swagger"
@@ -15,6 +15,9 @@
   "dependencies": {
     "connect": "^3.2.0",
     "js-yaml": "^3.3.0",
-    "oas3-tools": "^2.2.3"
+    "oas3-tools": "^2.2.3",
+    "sequelize": "6.3.5",
+    "pg": "^7.18.2",
+    "pg-hstore": "^2.3.3"
   }
 }

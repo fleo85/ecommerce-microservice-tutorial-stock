@@ -5,10 +5,8 @@ info:
     \ or HTML."
   version: 0.1.9
 servers:
-- url: http://api.example.com/v1
-  description: "Optional server description, e.g. Main (production) server"
-- url: http://staging-api.example.com
-  description: "Optional server description, e.g. Internal staging server for testing"
+- url: http://localhost:8080/v1
+  description: "Localtest"
 paths:
   /products:
     get:
@@ -100,11 +98,11 @@ components:
       example:
         total: 0
         products:
-        - auantita: 1
+        - quantita: 1
           produttore: produttore
           nome: nome
           id: 6
-        - auantita: 1
+        - quantita: 1
           produttore: produttore
           nome: nome
           id: 6
@@ -116,10 +114,10 @@ components:
           type: string
         produttore:
           type: string
-        auantita:
+        quantita:
           type: integer
       example:
-        auantita: 1
+        quantita: 1
         produttore: produttore
         nome: nome
         id: 6

@@ -1,0 +1,33 @@
+{
+    "development": {
+        "username": "postgres",
+        "password": "admin",
+        "database": "stock_microservice_db",
+        "host": "127.0.0.1",
+        "dialect": "postgres",
+        "forcedbreset": false,
+        "listening_port": 8080,
+        "minifyAliases": true
+    },
+    "test": {
+        "username": "postgres",
+        "password": "admin",
+        "database": "stock_microservice_db",
+        "host": "127.0.0.1",
+        "dialect": "postgres",
+        "forcedbreset": false,
+        "listening_port": 8080,
+        "minifyAliases": true
+    }
+    ,
+    "production": {
+        "username": "postgres",
+        "password": "admin",
+        "database": "stock_microservice_db",
+        "host": "127.0.0.1",
+        "dialect": "postgres",
+        "forcedbreset": false,
+        "listening_port": 8080,
+        "minifyAliases": true
+    }
+}
