@@ -6,6 +6,10 @@ var pg_host = process.env.POSTGRES_HOST || config.host
 var database = process.env.POSTGRES_DATABASENAME || config.database
 var username = process.env.POSTGRES_USERNAME || config.username
 var password = process.env.POSTGRES_PASSWORD || config.password
+console.log(pg_host)
+console.log(database)
+console.log(username)
+console.log(password)
 
 var sequelize = require('sequelize');
 const sequelizeconn = new sequelize(database, username, password, {
