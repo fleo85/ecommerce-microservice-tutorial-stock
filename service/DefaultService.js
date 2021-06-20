@@ -42,7 +42,9 @@ exports.productsGET = function(offset,limit) {
         result.products.push(buildProductFromDB(product));
       })
       resolve(result);
-    })
+    }).catch(error => {
+      resolve(error)
+    });
   });
 }
 
