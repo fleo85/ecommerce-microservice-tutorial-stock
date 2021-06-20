@@ -63,7 +63,7 @@ exports.productsGET = function(offset,limit) {
 exports.productsPOST = function(body) {
   return new Promise(function(resolve, reject) {
     Context.sequelizeconn.transaction(t => {
-      return Context.Product.create(buildProductForDB(body),
+      return Context.Product.create(buildProductForDB(body, true),
         {
           transaction: t
         }).then(updateProduct => {
@@ -89,7 +89,7 @@ exports.productsProductIdPUT = function(body,productId) {
   return new Promise(function(resolve, reject) {
     Context.sequelizeconn.transaction(t => {
       return Context.Product.update(
-        buildProductForDB(body),
+        buildProductForDB(body, false),
         {
           where: { id: productId },
           transaction: t,
