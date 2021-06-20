@@ -105,10 +105,10 @@ exports.productsProductIdPUT = function(body,productId) {
 
                       var queue = 'products';
                       var msg = {
-                        id = newValue[1][0].dataValues["id"],
-                        nome = newValue[1][0].dataValues["name"],
-                        produttore = newValue[1][0].dataValues["manufacturer"],
-                        quantita = newValue[1][0].dataValues["availableAmount"],
+                        id: newValue[1][0].dataValues["id"],
+                        nome: newValue[1][0].dataValues["name"],
+                        produttore: newValue[1][0].dataValues["manufacturer"],
+                        quantita: newValue[1][0].dataValues["availableAmount"],
                       };
 
                       channel.assertQueue(queue, {
