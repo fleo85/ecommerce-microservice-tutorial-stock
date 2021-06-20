@@ -1,12 +1,13 @@
 'use strict';
 const Context = require('../models/stock-microservice-context.js')
 var Sequelize = require('sequelize');
+var amqp = require('amqplib/callback_api');
 
 function buildProductForDB(product) {
   var docItem = {}
   docItem["name"] = product.nome;
   docItem["manufacturer"] = product.produttore;
-  docItem["availableAmount"] = product.quantita;
+  docItem["availableAmount"] = Sequelize.literal('"availableAmount" + ' + product.quantita);
   return docItem;
 }
 
@@ -87,9 +88,41 @@ exports.productsProductIdPUT = function(body,productId) {
         buildProductForDB(body),
         {
           where: { id: productId },
-          transaction: t
+          transaction: t,
+          returning: true
         }
-      )
+      ).then(newValue => {
+        if (newValue.length >= 2) {
+          body.quantita = newValue[1][0].dataValues["availableAmount"]
+          amqp.connect('amqp://rabbitmq', function(error0, connection) {
+                  if (error0) {
+                      throw error0;
+                  }
+                  connection.createChannel(function(error1, channel) {
+                      if (error1) {
+                          throw error1;
+                      }
+
+                      var queue = 'products';
+                      var msg = {
+                        id = newValue[1][0].dataValues["id"],
+                        nome = newValue[1][0].dataValues["name"],
+                        produttore = newValue[1][0].dataValues["manufacturer"],
+                        quantita = newValue[1][0].dataValues["availableAmount"],
+                      };
+
+                      channel.assertQueue(queue, {
+                          durable: false
+                      });
+                      channel.sendToQueue(queue, Buffer.from(JSON.stringify(msg)));
+                  });
+                  setTimeout(function() {
+                      connection.close();
+                      process.exit(0);
+                  }, 500);
+          });
+        }
+      })
     })
       .then(result => {
         resolve(body);
