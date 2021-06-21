@@ -123,7 +123,6 @@ exports.productsProductIdPUT = function(body,productId) {
                   });
                   setTimeout(function() {
                       connection.close();
-                      process.exit(0);
                   }, 500);
           });
         }
