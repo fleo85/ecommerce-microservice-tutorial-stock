@@ -99,7 +99,7 @@ exports.productsProductIdPUT = function(body,productId) {
       ).then(newValue => {
         if (newValue.length >= 2) {
           body.quantita = newValue[1][0].dataValues["availableAmount"]
-          amqp.connect('amqp://rabbitmq', function(error0, connection) {
+          amqp.connect('amqp://rabbitmqhost', function(error0, connection) {
                   if (error0) {
                       throw error0;
                   }
